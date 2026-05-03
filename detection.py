@@ -6,6 +6,7 @@ from optimizations import optimizer
 class Detector:
     def __init__(self,cmd):
         self.cmd=cmd
+        self.LEvent="GbD"
         #camera 
         self.src = 0
         if len(sys.argv) > 1:
@@ -67,6 +68,18 @@ class Detector:
             return True
         return False
 
+    def push_event(self,event):
+        if event == self.LEvent:
+            return  # drop duplicate
+
+        self.cmd.EQueue.put((event,None))
+        self.LEvent = event
+        print("sent ", event)   
+
+    def update_pos(self, x, y):
+        with self.cmd.lock:
+            self.cmd.LatestPos = (x, y)
+
     def Start(self):
         #loading optimizer object
         opt=optimizer()
@@ -89,27 +102,28 @@ class Detector:
             if result.multi_hand_landmarks and result.multi_handedness:
                 #run only when left hand is detected point up
                 if self.LeftPointPresent(result) and self.RightPresent(result):
+                    self.push_event("BEGIN")
                     for handMarks, handType in zip(result.multi_hand_landmarks,result.multi_handedness):
                         self.MPdraw.draw_landmarks(frame,handMarks,self.MPhands.HAND_CONNECTIONS)
                         if handType.classification[0].label=="Right":
                             print("sending ",(handMarks.landmark[9].x,handMarks.landmark[9].y))
                             x,y=self.ToPixel(handMarks.landmark[9],frame)
-                            self.cmd.put(("MOVE",opt.prvMean(x,y)))
+                            self.update_pos(x,y)
                             fx,fy=self.ToPixel(handMarks.landmark[8],frame)
                             tx,ty=self.ToPixel(handMarks.landmark[4],frame)
                             cv2.rectangle(frame,(fx+20,fy-20),(fx-20,fy+20), (255, 0, 0), 3)
                             if self.isContact(tx,ty,fx,fy,20) and not cStatus:
-                                self.cmd.put((("CLICK"),None))
+                                self.push_event("CLICK")
                                 cStatus=True
                             elif not self.isContact(tx,ty,fx,fy,20) and cStatus:
-                                self.cmd.put((("RELEASE"),None))
+                                self.push_event("RELEASE")
                                 cStatus=False
                 else:
-                    self.cmd.put(("BREAK",None))
-                    print("sent break\n")           
+                    self.push_event("BREAK")
+                    
 
             cv2.imshow(self.win_name,frame)
-        self.cmd.put(("KILL",None))
+        self.push_event("KILL")
         self.kill()
         return
 

@@ -1,14 +1,14 @@
 import threading 
-import queue
 import time
 from detection import Detector
 from commands import GestureMouse
+from pipeline import Pipe
 
-cmd= queue.Queue()
+CState= Pipe()
 
 def CamDetector():
     try:
-        det=Detector(cmd)
+        det=Detector(CState)
         det.Start()
     except:
         print("error\n")
@@ -17,37 +17,55 @@ def Commander():
     prevX=0
     prevY=0
     Factor=6
-    resync_frames = 0
+    br=False
+    bg=True
     mouse=GestureMouse()
     while True:
-        inst= cmd.get()
+        time.sleep(0.01) #cpu Throttle
+        try:
+            event = CState.EQueue.get_nowait()
+        except:
+            event = None
 
-        if inst[0]=="KILL":
-            mouse.kill()
-            break
+        if event:
+            if event[0]=="KILL":
+                mouse.kill()
+                break
 
-        if inst[0] == "MOVE":
-            x, y = inst[1]
+            elif event[0]=="CLICK":
+                mouse.click()
 
-            if resync_frames > 0:
-                prevX, prevY = x, y
-                resync_frames -= 1
-                continue        
+            elif event[0]=="RELEASE":
+                mouse.release()
+            
+            elif event[0]=="BREAK":
+                br = True
 
-            dx = int((x - prevX) * Factor)
-            dy = int((y - prevY) * Factor)
+            elif event[0]=="BEGIN":
+                br=False
+                bg=True
+        
+        if br:
+            continue
 
-            mouse.movePointer(dx, dy, 8, 0.01)
+        with CState.lock:
+            pos = CState.LatestPos
+
+        if pos is None:
+            print("None\n")
+            continue
+
+        x, y = pos
+        if bg:
             prevX, prevY = x, y
-        
-        if inst[0]=="CLICK":
-            mouse.click()
+            bg=False
+            continue        
 
-        if inst[0]=="RELEASE":
-            mouse.release()
-        
-        if inst[0]=="BREAK":
-            resync_frames = 4
+        dx = int((x - prevX) * Factor)
+        dy = int((y - prevY) * Factor)
+
+        mouse.movePointer(dx, dy, 8, 0.01)
+        prevX, prevY = x, y
 
 thread1=threading.Thread(target=CamDetector)
 thread2=threading.Thread(target=Commander)
