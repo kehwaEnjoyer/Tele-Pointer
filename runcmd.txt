@@ -1,0 +1,1 @@
+sudo /home/starplatinum/.pyenv/versions/env/bin/python control.py
