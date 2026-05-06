@@ -138,7 +138,6 @@ class Detector:
                             #print("sending ",(handMarks.landmark[9].x,handMarks.landmark[9].y))
                             x,y=self.ToPixel(handMarks.landmark[9],frame)
                             self.update_pos(x,y)
-                            cv2.rectangle(frame,(fx+20,fy-20),(fx-20,fy+20), (255, 0, 0), 3)
                             
                 else:
                     if sStatus:
