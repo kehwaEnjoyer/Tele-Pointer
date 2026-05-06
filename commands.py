@@ -6,7 +6,7 @@ class GestureMouse:
 
         self.ui = UInput(
             {
-                e.EV_REL: [e.REL_X, e.REL_Y],
+                e.EV_REL: [e.REL_X, e.REL_Y, e.REL_WHEEL],
                 e.EV_KEY: [e.BTN_LEFT,e.BTN_RIGHT],
             },
             name="GestureMouse"
@@ -35,6 +35,10 @@ class GestureMouse:
             self.cStatus=False
             time.sleep(0.1) 
 
+    def scroll(self,Ychange,delay=0.01):
+        self.ui.write(e.EV_REL,e.REL_WHEEL,Ychange)
+        self.ui.syn()
+        time.sleep(delay)
 
     def kill(self):
         self.ui.close()

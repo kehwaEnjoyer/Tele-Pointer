@@ -75,7 +75,6 @@ class Detector:
     def push_event(self,event):
         if event == self.LEvent:
             return  # drop duplicate
-
         self.cmd.EQueue.put((event,None))
         self.LEvent = event
         print("sent ", event)   
@@ -89,6 +88,7 @@ class Detector:
         opt=optimizer()
         cv2.namedWindow(self.win_name, cv2.WINDOW_NORMAL)
         cStatus=False
+        sStatus=False
 
         while cv2.waitKey(1) !=27: #27=esc key
             #reading and checking frame
@@ -106,6 +106,10 @@ class Detector:
             if result.multi_hand_landmarks and result.multi_handedness:
                 #run only when left hand is detected point up
                 if (self.LeftPointPresent(result)==1) and self.RightPresent(result):
+                    if sStatus:
+                        self.push_event("SCROLLEND")
+                        self.push_event("BREAK")
+                        sStatus=False
                     self.push_event("BEGIN")
                     for handMarks, handType in zip(result.multi_hand_landmarks,result.multi_handedness):
                         self.MPdraw.draw_landmarks(frame,handMarks,self.MPhands.HAND_CONNECTIONS)
@@ -124,9 +128,22 @@ class Detector:
                                 cStatus=False
                 
                 elif (self.LeftPointPresent(result)==2) and self.RightPresent(result):
-                    print("two detected\n")
-
+                    if not sStatus:
+                        self.push_event("SCROLLSTART")
+                        sStatus=True
+                    self.push_event("BEGIN")
+                    for handMarks, handType in zip(result.multi_hand_landmarks,result.multi_handedness):
+                        self.MPdraw.draw_landmarks(frame,handMarks,self.MPhands.HAND_CONNECTIONS)
+                        if handType.classification[0].label=="Right":
+                            #print("sending ",(handMarks.landmark[9].x,handMarks.landmark[9].y))
+                            x,y=self.ToPixel(handMarks.landmark[9],frame)
+                            self.update_pos(x,y)
+                            cv2.rectangle(frame,(fx+20,fy-20),(fx-20,fy+20), (255, 0, 0), 3)
+                            
                 else:
+                    if sStatus:
+                        self.push_event("SCROLLEND")
+                        sStatus=False
                     self.push_event("BREAK")
                     
 

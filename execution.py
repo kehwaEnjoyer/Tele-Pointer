@@ -16,12 +16,14 @@ def CamDetector():
 def Commander():
     prevX=0
     prevY=0
-    Factor=6
+    Factor=8
+    scrollSen=6
     br=False
     bg=True
+    sc=False
     mouse=GestureMouse()
     while True:
-        time.sleep(0.01) #cpu Throttle
+        time.sleep(0.02) #cpu Throttle
         try:
             event = CState.EQueue.get_nowait()
         except:
@@ -45,11 +47,11 @@ def Commander():
                 br=False
                 bg=True
 
-            elif event[0]=="SCROLL":
-                if event[1]=="START":
-                    sc=True
-                elif event[1]=="END":
-                    sc=False
+            elif event[0]=="SCROLLSTART":
+                sc=True
+
+            elif event[0]=="SCROLLEND":
+                sc=False
 
         if br:
             continue
@@ -66,11 +68,16 @@ def Commander():
             prevX, prevY = x, y
             bg=False
             continue        
-        #add scroll exception here :)
+
         dx = int((x - prevX) * Factor)
         dy = int((y - prevY) * Factor)
 
-        mouse.movePointer(dx, dy, 8, 0.01)
+        if not sc:
+            mouse.movePointer(dx, dy, 8, 0.01)
+
+        if sc:
+            mouse.scroll(int(dy/scrollSen))
+
         prevX, prevY = x, y
 
 thread1=threading.Thread(target=CamDetector)
