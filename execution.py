@@ -44,7 +44,13 @@ def Commander():
             elif event[0]=="BEGIN":
                 br=False
                 bg=True
-        
+
+            elif event[0]=="SCROLL":
+                if event[1]=="START":
+                    sc=True
+                elif event[1]=="END":
+                    sc=False
+
         if br:
             continue
 
@@ -60,7 +66,7 @@ def Commander():
             prevX, prevY = x, y
             bg=False
             continue        
-
+        #add scroll exception here :)
         dx = int((x - prevX) * Factor)
         dy = int((y - prevY) * Factor)
 

@@ -50,9 +50,13 @@ class Detector:
 
     def LeftPointPresent(self,hands):
         for handMarks, handType in zip(hands.multi_hand_landmarks,hands.multi_handedness):
-                if handType.classification[0].label == "Left" and self.fingersUp(handMarks,handType)==[0,1,0,0,0]:
-                    return True
-        return False
+                if handType.classification[0].label == "Left":
+                    if self.fingersUp(handMarks,handType)==[0,1,0,0,0]:
+                        return 1
+                    elif self.fingersUp(handMarks,handType)==[0,1,1,0,0]:
+                        return 2
+        return 0
+    
 
     def ToPixel(self,landmark, frame):
         height, width, _ = frame.shape
@@ -101,7 +105,7 @@ class Detector:
 
             if result.multi_hand_landmarks and result.multi_handedness:
                 #run only when left hand is detected point up
-                if self.LeftPointPresent(result) and self.RightPresent(result):
+                if (self.LeftPointPresent(result)==1) and self.RightPresent(result):
                     self.push_event("BEGIN")
                     for handMarks, handType in zip(result.multi_hand_landmarks,result.multi_handedness):
                         self.MPdraw.draw_landmarks(frame,handMarks,self.MPhands.HAND_CONNECTIONS)
@@ -118,6 +122,10 @@ class Detector:
                             elif not self.isContact(tx,ty,fx,fy,20) and cStatus:
                                 self.push_event("RELEASE")
                                 cStatus=False
+                
+                elif (self.LeftPointPresent(result)==2) and self.RightPresent(result):
+                    print("two detected\n")
+
                 else:
                     self.push_event("BREAK")
                     
