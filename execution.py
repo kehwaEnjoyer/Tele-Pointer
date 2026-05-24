@@ -3,6 +3,7 @@ import time
 from detection import Detector
 from commands import GestureMouse
 from pipeline import Pipe
+from optimizations import optimizer
 
 CState= Pipe()
 
@@ -22,8 +23,10 @@ def Commander():
     bg=True
     sc=False
     mouse=GestureMouse()
+    #loading optimizer object
+    opt=optimizer()
     while True:
-        time.sleep(0.02) #cpu Throttle
+        time.sleep(0.01) #cpu Throttle
         try:
             event = CState.EQueue.get_nowait()
         except:
@@ -66,9 +69,11 @@ def Commander():
         x, y = pos
         if bg:
             prevX, prevY = x, y
+            opt.setPrevPos(x,y)
             bg=False
             continue        
 
+        x,y=opt.prvMean(x,y)
         dx = int((x - prevX) * Factor)
         dy = int((y - prevY) * Factor)
 

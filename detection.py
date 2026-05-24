@@ -1,7 +1,6 @@
 import cv2
 import mediapipe as mp
 import sys
-from optimizations import optimizer
 
 class Detector:
     def __init__(self,cmd):
@@ -84,8 +83,6 @@ class Detector:
             self.cmd.LatestPos = (x, y)
 
     def Start(self):
-        #loading optimizer object
-        opt=optimizer()
         cv2.namedWindow(self.win_name, cv2.WINDOW_NORMAL)
         cStatus=False
         sStatus=False
@@ -119,11 +116,11 @@ class Detector:
                             self.update_pos(x,y)
                             fx,fy=self.ToPixel(handMarks.landmark[8],frame)
                             tx,ty=self.ToPixel(handMarks.landmark[4],frame)
-                            cv2.rectangle(frame,(fx+20,fy-20),(fx-20,fy+20), (255, 0, 0), 3)
-                            if self.isContact(tx,ty,fx,fy,20) and not cStatus:
+                            cv2.rectangle(frame,(fx+15,fy-15),(fx-15,fy+15), (255, 0, 0), 3)
+                            if self.isContact(tx,ty,fx,fy,15) and not cStatus:
                                 self.push_event("CLICK")
                                 cStatus=True
-                            elif not self.isContact(tx,ty,fx,fy,20) and cStatus:
+                            elif not self.isContact(tx,ty,fx,fy,15) and cStatus:
                                 self.push_event("RELEASE")
                                 cStatus=False
                 
