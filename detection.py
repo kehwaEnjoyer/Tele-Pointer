@@ -84,7 +84,8 @@ class Detector:
 
     def Start(self):
         cv2.namedWindow(self.win_name, cv2.WINDOW_NORMAL)
-        cStatus=False
+        LCStatus=False
+        RCStatus=False
         sStatus=False
 
         while cv2.waitKey(1) !=27: #27=esc key
@@ -114,15 +115,22 @@ class Detector:
                             print("sending ",(handMarks.landmark[9].x,handMarks.landmark[9].y))
                             x,y=self.ToPixel(handMarks.landmark[9],frame)
                             self.update_pos(x,y)
-                            fx,fy=self.ToPixel(handMarks.landmark[8],frame)
+                            Ifx,Ify=self.ToPixel(handMarks.landmark[8],frame)
+                            Mfx,Mfy=self.ToPixel(handMarks.landmark[12],frame)
                             tx,ty=self.ToPixel(handMarks.landmark[4],frame)
-                            cv2.rectangle(frame,(fx+15,fy-15),(fx-15,fy+15), (255, 0, 0), 3)
-                            if self.isContact(tx,ty,fx,fy,15) and not cStatus:
-                                self.push_event("CLICK")
-                                cStatus=True
-                            elif not self.isContact(tx,ty,fx,fy,15) and cStatus:
-                                self.push_event("RELEASE")
-                                cStatus=False
+                            cv2.rectangle(frame,(Ifx+15,Ify-15),(Ifx-15,Ify+15), (255, 0, 0), 3)
+                            if self.isContact(tx,ty,Ifx,Ify,15) and not LCStatus:
+                                self.push_event("LEFT CLICK")
+                                LCStatus=True
+                            elif not self.isContact(tx,ty,Ifx,Ify,15) and LCStatus:
+                                self.push_event("LEFT RELEASE")
+                                LCStatus=False
+                            elif self.isContact(tx,ty,Mfx,Mfy,15) and not RCStatus:
+                                self.push_event("RIGHT CLICK")
+                                RCStatus=True
+                            elif not self.isContact(tx,ty,Mfx,Mfy,15) and RCStatus:
+                                self.push_event("RIGHT RELEASE")
+                                RCStatus=False
                 
                 elif (self.LeftPointPresent(result)==2) and self.RightPresent(result):
                     if not sStatus:

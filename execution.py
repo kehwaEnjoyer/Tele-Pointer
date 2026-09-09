@@ -37,12 +37,18 @@ def Commander():
                 mouse.kill()
                 break
 
-            elif event[0]=="CLICK":
-                mouse.click()
+            elif event[0]=="LEFT CLICK":
+                mouse.LeftClick()
 
-            elif event[0]=="RELEASE":
-                mouse.release()
-            
+            elif event[0]=="LEFT RELEASE":
+                mouse.LeftRelease()
+
+            elif event[0]=="RIGHT CLICK":
+                mouse.RightClick()
+
+            elif event[0]=="RIGHT RELEASE":
+                mouse.RightRelease()
+
             elif event[0]=="BREAK":
                 br = True
 

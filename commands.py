@@ -11,7 +11,8 @@ class GestureMouse:
             },
             name="GestureMouse"
         )
-        self.cStatus=False
+        self.LCStatus=False
+        self.RCStatus=False
 
     def movePointer(self, Xchange=0, Ychange=0, sen=5, delay=0.01):
         if abs(Xchange)>sen:
@@ -21,18 +22,32 @@ class GestureMouse:
         self.ui.syn()
         time.sleep(delay)
 
-    def click(self):
-        if not self.cStatus:
+    def LeftClick(self):
+        if not self.LCStatus:
             self.ui.write(e.EV_KEY, e.BTN_LEFT, 1) # Press
             self.ui.syn()
-            self.cStatus=True
+            self.LCStatus=True
             time.sleep(0.1) 
        
-    def release(self):
-        if self.cStatus:
+    def LeftRelease(self):
+        if self.LCStatus:
             self.ui.write(e.EV_KEY, e.BTN_LEFT, 0) # Release
             self.ui.syn()
-            self.cStatus=False
+            self.LCStatus=False
+            time.sleep(0.1) 
+
+    def RightClick(self):
+        if not self.RCStatus:
+            self.ui.write(e.EV_KEY, e.BTN_RIGHT, 1) # Press
+            self.ui.syn()
+            self.RCStatus=True
+            time.sleep(0.1) 
+       
+    def RightRelease(self):
+        if self.RCStatus:
+            self.ui.write(e.EV_KEY, e.BTN_RIGHT, 0) # Release
+            self.ui.syn()
+            self.RCStatus=False
             time.sleep(0.1) 
 
     def scroll(self,Ychange,delay=0.01):
