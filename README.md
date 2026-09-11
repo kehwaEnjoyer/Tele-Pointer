@@ -24,20 +24,15 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/kehwaEnjoyer/Tele-Pointer">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
-  </a>
 
 <h3 align="center">Tele-Pointer</h3>
 
   <p align="center">
     A project designed to allow the control of the cursor through the webcam using Mediapipe and opencv.
     <br />
-    <a href="https://github.com/kehwaEnjoyer/Tele-Pointer"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/kehwaEnjoyer/Tele-Pointer"><strong>Explore the docs (no docs yet though) »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/kehwaEnjoyer/Tele-Pointer">View Demo</a>
-    &middot;
     <a href="https://github.com/kehwaEnjoyer/Tele-Pointer/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
     &middot;
     <a href="https://github.com/kehwaEnjoyer/Tele-Pointer/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
@@ -68,7 +63,6 @@
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
 
@@ -78,7 +72,7 @@
 ## About The Project
 This projects aims to create a cursor controller by utilizing the webcam to allow control through hand signs and motion at a distance. This is achived by applying a rule based monitering system on hand landmarks detected my mediapipes hand detection.
 THe obseved commands are sent to the linux input system by evdev to control the cursor.
-The pipeline also contains various optimizations along to reduce false flags ,jitter and lags,
+The pipeline also contains various optimizations along to reduce false flags, jitter and lags.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
