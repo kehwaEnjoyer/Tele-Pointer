@@ -84,9 +84,9 @@
 
 ### Built With
 
-* [![Google MediaPipe]][Mediapipe-url]
-* [![OpenCV]][OpenCV-url]
-* [![evdev]][evdev-url]
+* [Google MediaPipe][Mediapipe-url]
+* [OpenCV][OpenCV-url]
+* [evdev][evdev-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -168,11 +168,6 @@ python -c "import cv2, mediapipe, evdev; print('All dependencies installed succe
 <!-- ROADMAP -->
 ## Roadmap
 
-- [ ] Feature 1
-- [ ] Feature 2
-- [ ] Feature 3
-    - [ ] Nested Feature
-
 See the [open issues](https://github.com/kehwaEnjoyer/Tele-Pointer/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -182,7 +177,7 @@ See the [open issues](https://github.com/kehwaEnjoyer/Tele-Pointer/issues) for a
 <!-- CONTRIBUTING -->
 ## Contributing
 
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+Contributions are much welcomed.
 
 If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
 Don't forget to give the project a star! Thanks again!
@@ -215,14 +210,13 @@ Distributed under the MIT. See `LICENSE.txt` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - yahyasmughal@gmail.com
+ yahyasmughal@gmail.com
 
 Project Link: [https://github.com/kehwaEnjoyer/Tele-Pointer](https://github.com/kehwaEnjoyer/Tele-Pointer)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 
