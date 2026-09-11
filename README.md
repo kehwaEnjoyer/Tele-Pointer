@@ -1,12 +1,6 @@
-<!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
+
 <a id="readme-top"></a>
-<!--
-*** Thanks for checking out the Best-README-Template. If you have a suggestion
-*** that would make this better, please fork the repo and create a pull request
-*** or simply open an issue with the tag "enhancement".
-*** Don't forget to give the project a star!
-*** Thanks again! Now go create something AMAZING! :D
--->
+
 
 
 
@@ -83,9 +77,6 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
-
-Here's a blank template to get started. To avoid retyping too much info, do a search and replace with your text editor for the following: `kehwaEnjoyer`, `Tele-Pointer`, `twitter_handle`, `linkedin_username`, `gmail`, `yahyasmughal`, `Tele-Pointer`, `A project designed to allow the control of the cursor through the webcam using Mediapipe and opencv.`, `MIT`
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -104,38 +95,35 @@ Here's a blank template to get started. To avoid retyping too much info, do a se
 <!-- GETTING STARTED -->
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
-
 ## Setup
 
 ### 1. Create a Python virtual environment
 
-```bash
+```sh
 python3 -m venv venv
 ```
 
 ### 2. Create and activate virtual enviroment
 
-```bash
+```sh
 source venv/bin/activate
 ```
 
 ### 3. Upgrade pip
 
-```bash
+```sh
 python -m pip install --upgrade pip
 ```
 
 ### 4. Install dependencies
 
-```bash
+```sh
 pip install opencv-python mediapipe evdev
 ```
 
 ### 5. Verify installations
 
-```bash
+```sh
 python -c "import cv2, mediapipe, evdev; print('All dependencies installed successfully!')"
 ```
 
@@ -143,13 +131,13 @@ python -c "import cv2, mediapipe, evdev; print('All dependencies installed succe
 ### Execution
 
 1. Clone the repo
-   ```bash
+   ```sh
    git clone https://github.com/kehwaEnjoyer/Tele-Pointer.git
    ```
-2. Execution:
-   run the execution.py file with python
-   ```bash
-  python execution,py
+2. Execution: run the execution.py file with python
+
+   ```sh
+   python execution,py
    ```
 
 3. Notes:
