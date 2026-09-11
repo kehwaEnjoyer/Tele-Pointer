@@ -76,7 +76,9 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-
+This projects aims to create a cursor controller by utilizing the webcam to allow control through hand signs and motion at a distance. This is achived by applying a rule based monitering system on hand landmarks detected my mediapipes hand detection.
+THe obseved commands are sent to the linux input system by evdev to control the cursor.
+The pipeline also contains various optimizations along to reduce false flags ,jitter and lags,
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -153,12 +155,12 @@ python -c "import cv2, mediapipe, evdev; print('All dependencies installed succe
  In this project both hands are used to control the cursor on screen.
  The left hand is used as the mode identifier while the the right is used to issue commands
 
-1. Left hand index finger up (pointing up):
-    move right hand around to control the position of the cursor.
-    connect thumb and index tip to left click.
-    connect thumb and middle tip to right click.
+1. Left hand index finger up (pointing up): <br>
+    move right hand around to control the position of the cursor.<br>
+    connect thumb and index tip to left click. <br>
+    connect thumb and middle tip to right click. <br>
 
-2. Left hand index and middle finger up (peace sign):
+2. Left hand index and middle finger up (peace sign): <br>
     move right hand up to scroll up and vice versa.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -189,13 +191,6 @@ Don't forget to give the project a star! Thanks again!
 5. Open a Pull Request
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-### Top contributors:
-
-<a href="https://github.com/kehwaEnjoyer/Tele-Pointer/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=kehwaEnjoyer/Tele-Pointer" alt="contrib.rocks image" />
-</a>
-
 
 
 <!-- LICENSE -->
