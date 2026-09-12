@@ -17,7 +17,6 @@
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![MIT][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
 
 
 
@@ -221,8 +220,6 @@ Project Link: [https://github.com/kehwaEnjoyer/Tele-Pointer](https://github.com/
 [issues-url]: https://github.com/kehwaEnjoyer/Tele-Pointer/issues
 [license-shield]: https://img.shields.io/github/license/kehwaEnjoyer/Tele-Pointer.svg?style=for-the-badge
 [license-url]: https://github.com/kehwaEnjoyer/Tele-Pointer/blob/main/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/linkedin_username
 [product-screenshot]: images/screenshot.png
 <!-- Shields.io badges. You can a comprehensive list with many more badges at: https://github.com/inttter/md-badges -->
 [Mediapipe-url]: https://developers.google.com/edge/mediapipe/solutions/vision/hand_landmarker
